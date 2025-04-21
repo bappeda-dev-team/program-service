@@ -5,4 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface ProgramRepository extends ReactiveCrudRepository<Program, Long> {
     Mono<Boolean> existsByKodeProgram(String kodeProgram);
+    Mono<Program> findByKodeProgram(String kodeProgram);
 }

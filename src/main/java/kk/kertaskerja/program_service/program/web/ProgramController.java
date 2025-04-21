@@ -21,6 +21,11 @@ public class ProgramController {
         return programService.getAllPrograms();
     }
 
+    @GetMapping("{kodeProgram}")
+    public Mono<Program> getByKodeProgram(@PathVariable String kodeProgram) {
+        return programService.getByKodeProgram(kodeProgram);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Program> addProgram(@RequestBody @Valid ProgramRequest request) {

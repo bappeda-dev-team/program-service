@@ -18,6 +18,14 @@ public class ProgramService {
         return programRepository.findAll();
     }
 
+    public Mono<Program> getByKodeProgram(String kodeProgram) {
+        return programRepository.existsByKodeProgram(kodeProgram)
+                .flatMap( exists -> {
+                    if (!exists) return Mono.error(new ProgramNotFoundException(kodeProgram));
+                    return programRepository.findByKodeProgram(kodeProgram);
+                });
+    }
+
     public Mono<Program> addProgram(String kodeBidangUrusan, String kodeProgram, String namaProgram) {
         return programRepository.existsByKodeProgram(kodeProgram)
                 .flatMap(exists -> {

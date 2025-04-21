@@ -3,6 +3,7 @@ package kk.kertaskerja.program_service.program.web;
 import kk.kertaskerja.program_service.common.exception.ApiError;
 import kk.kertaskerja.program_service.common.exception.ValidationError;
 import kk.kertaskerja.program_service.program.domain.ProgramAlreadyExistsException;
+import kk.kertaskerja.program_service.program.domain.ProgramNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.FieldError;
@@ -19,6 +20,17 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ProgramControllerAdvice {
+    @ExceptionHandler(ProgramNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ApiError handleProgramNotFoundException(ProgramNotFoundException e, ServerHttpRequest request) {
+        return new ApiError(
+                HttpStatus.NOT_FOUND.value(),
+                e.getMessage(),
+                Instant.now(),
+                request.getPath().pathWithinApplication().value()
+        );
+    }
+
     @ExceptionHandler(ProgramAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     ApiError handleProgramAlreadyExistsException(ProgramAlreadyExistsException ex, ServerHttpRequest request) {
