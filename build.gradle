@@ -22,6 +22,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -31,6 +33,8 @@ dependencies {
 	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.testcontainers:r2dbc'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// fix for macos
+	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.79.Final:osx-aarch_64'
 }
 
 tasks.named('test') {
